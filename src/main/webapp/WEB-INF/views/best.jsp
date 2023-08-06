@@ -20,10 +20,10 @@
     <nav>
         <div class="ltd">
                 <span class="geeknews">
-                    <a href="/p3_21900613_3/" class="selected">GeekNews</a>
+                    <a href="/p3_21900613_3/">GeekNews</a>
                 </span>
             <a href="write">글등록</a>
-            <a href="best">인기글</a>
+            <a href="best" class="selected">인기글</a>
         </div>
     </nav>
 </header>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="topicdesc">
                         <a href="topic/${b.getBoard_seq()}" class="c99 breakall">
-                            ${b.getContent()}
+                                ${b.getContent()}
                         </a>
                     </div>
                     <div class="topicinfo">

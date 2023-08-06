@@ -1,4 +1,5 @@
 package com.example.board;
+import com.example.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,17 +10,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BoardController {
     @Autowired
-    BoardDAO boardDAO;
+    BoardService boardService;
+    @Autowired
+    CommentService commentService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String main(Model model) {
-        model.addAttribute("list", boardDAO.getBoardList());
+        model.addAttribute("list", boardService.getBoardList());
         return "index";
+    }
+
+    @RequestMapping(value = "/best", method = RequestMethod.GET)
+    public String best(Model model) {
+        model.addAttribute("list", boardService.getBoardBest());
+        return "best";
     }
 
     @RequestMapping(value = "/topic/{board_seq}", method = RequestMethod.GET)
     public String topic(@PathVariable("board_seq") int board_seq, Model model) {
-        BoardVO boardVO = boardDAO.getBoard(board_seq);
+        BoardVO boardVO = boardService.getBoard(board_seq);
+        boardService.viewCount(board_seq);
         model.addAttribute("b", boardVO);
+        model.addAttribute("list", commentService.getCommentList(board_seq));
         return "topic";
     }
 
@@ -30,26 +42,27 @@ public class BoardController {
 
     @RequestMapping(value = "/writeok", method = RequestMethod.POST)
     public String addPostOk(BoardVO vo) {
-        boardDAO.insertBoard(vo);
+        boardService.insertBoard(vo);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/delete/{board_seq}", method = RequestMethod.GET)
     public String deletePost(@PathVariable("board_seq") int board_seq) {
-        boardDAO.deleteBoard(board_seq);
+        commentService.deleteAllComment(board_seq);
+        boardService.deleteBoard(board_seq);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/edit/{board_seq}", method = RequestMethod.GET)
     public String editPost(@PathVariable("board_seq") int board_seq, Model model) {
-        BoardVO boardVO = boardDAO.getBoard(board_seq);
+        BoardVO boardVO = boardService.getBoard(board_seq);
         model.addAttribute("b", boardVO);
         return "edit";
     }
 
     @RequestMapping(value = "/editok", method = RequestMethod.POST)
     public String editPostOk(BoardVO vo) {
-        boardDAO.updateBoard(vo);
+        boardService.updateBoard(vo);
         return "redirect:/";
     }
 

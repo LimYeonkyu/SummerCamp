@@ -3,5 +3,6 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="board" type="com.example.board.BoardVO" />
+        <typeAlias alias="comment" type="com.example.comment.CommentVO" />
     </typeAliases>
 </configuration>

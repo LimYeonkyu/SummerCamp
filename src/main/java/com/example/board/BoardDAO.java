@@ -21,6 +21,11 @@ public class BoardDAO {
         return result;
     }
 
+    public int viewCount(int board_seq){
+        int result=sqlSession.update("Board.viewCount", board_seq);
+        return result;
+    }
+
     public int deleteBoard(int board_seq) {
         int result = sqlSession.delete("Board.deleteBoard", board_seq);
         return result;
@@ -33,6 +38,11 @@ public class BoardDAO {
 
     public List<BoardVO> getBoardList() {
         List<BoardVO> result = sqlSession.selectList("Board.getBoardList");
+        return result;
+    }
+
+    public List<BoardVO> getBoardBest() {
+        List<BoardVO> result = sqlSession.selectList("Board.getBoardBest");
         return result;
     }
 }

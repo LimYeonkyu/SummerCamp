@@ -14,10 +14,10 @@
     <nav>
         <div class="ltd">
                 <span class="geeknews">
-                    <a href="/" class="selected">GeekNews</a>
+                    <a href="/p3_21900613_3/">GeekNews</a>
                 </span>
-            <a href="/write">글등록</a>
-            <span class="curnavitem"></span>
+            <a href="write">글등록</a>
+            <a href="best">인기글</a>
         </div>
     </nav>
 </header>

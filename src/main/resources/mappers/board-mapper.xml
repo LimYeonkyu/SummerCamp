@@ -11,6 +11,11 @@
         set id= #{id},category = #{category},title = #{title}, content = #{content}, url = #{url}
         where board_seq = #{board_seq}
     </update>
+    <update id="viewCount">
+        update GeekNews
+        set view_count = view_count+1
+        where board_seq = #{board_seq}
+    </update>
     <delete id="deleteBoard">
         delete from GeekNews where board_seq = #{board_seq}
     </delete>
@@ -18,6 +23,9 @@
         select * from GeekNews where board_seq = #{board_seq}
     </select>
     <select id="getBoardList" resultType="board">
-        select * from GeekNews order by board_seq desc
+        select * from GeekNews order by regdate desc
+    </select>
+    <select id="getBoardBest" resultType="board">
+        select * from GeekNews order by view_count desc
     </select>
 </mapper>
